@@ -14,13 +14,13 @@
 # КАК ЗАПУСТИТЬ АПИ
 1. Скачивайте папку апи( модельку кладете в ту же папку)
 2. Инсталлите все что нужно (скачиваете ngrok)
-    *1)* pip install spacy uvicorn
-    *2)* py -m spacy download ru_core_news_lg
+    **1.** pip install spacy uvicorn
+    **2.** py -m spacy download ru_core_news_lg
 3. Открываете консоль в папке и пишите:
-    *1)* py -m llama_cpp.server --model model-unsloth.Q4_K_M.gguf
-    *2)* py -m llama_cpp.server --model model-unsloth.Q4_K_M.gguf
-    *3)* uvicorn main:app --reload --port 1488
-    *4)* ngrok http http://localhost:1488
+    **1.** py -m llama_cpp.server --model model-unsloth.Q4_K_M.gguf
+    **2.** py -m llama_cpp.server --model model-unsloth.Q4_K_M.gguf
+    **3.** uvicorn main:app --reload --port 1488
+    **4.** ngrok http http://localhost:1488
 4. Пример запроса
   curl -X POST -H "Content-Type: application/json" -d '{"query": "Кто может выпустить бизнес-карту?"}' https://d77f-77-34-223-214.ngrok-free.app/assist ( вместо https://d77f-77-34-223-214.ngrok-free.app указываете вашу ссылку ngrok)
 
