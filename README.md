@@ -19,8 +19,8 @@
 3. Открываете консоль в папке и пишите:
     1. py -m llama_cpp.server --model model-unsloth.Q4_K_M.gguf
     2. py -m llama_cpp.server --model model-unsloth.Q4_K_M.gguf
-    3. uvicorn main:app --reload --port 1488
-    4. ngrok http http://localhost:1488
+    3. uvicorn main:app --reload --port 1337
+    4. ngrok http http://localhost:1337
 4. Пример запроса
   curl -X POST -H "Content-Type: application/json" -d '{"query": "Кто может выпустить бизнес-карту?"}' https://d77f-77-34-223-214.ngrok-free.app/assist ( вместо https://d77f-77-34-223-214.ngrok-free.app указываете вашу ссылку ngrok)
 
