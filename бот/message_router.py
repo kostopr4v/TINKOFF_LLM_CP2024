@@ -24,23 +24,6 @@ def replace_stars(input_string):
             result += word
     return result
 
-
-@router.message(Command('delete_history'))
-async def delete_history(message: Message):
-    chat_id = str(message.chat.id)
-    result = hashlib.md5(chat_id.encode())
-    result = str(result.hexdigest())
-    cursor.execute(f"""
-        DELETE FROM users
-    WHERE user_id=?""", (result,))
-    hist = [{"role": "system", "content": SYSTEM_PROMPT}]
-    hist = json.dumps(hist)
-    cursor.execute(f"""INSERT INTO users(user_id, history)
-        VALUES  (?, ?)""", (result, hist))
-    conn.commit()
-    await message.answer('Ваша история была успешно очищена!')
-
-
 @router.message(Command('start'))
 async def start_handler(message: Message):
     await message.answer(f"Здравствуйте, {message.chat.username}, я ИИ ассистент Тинькоффа. Чем могу быть полезен?")
