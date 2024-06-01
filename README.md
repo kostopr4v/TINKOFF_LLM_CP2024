@@ -4,7 +4,8 @@
 
 1. train.ipynb - код обучения модели 
 2. interact_llama3_llamacpp.py - файл инференса модели 
-3. requirements.txt - нужные библиотеки для инференса 
+3. requirements.txt - нужные библиотеки для инференса
+4. api - папка для поднятия сервера FastAPI
 
 
 
