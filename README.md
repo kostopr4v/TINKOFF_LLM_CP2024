@@ -3,6 +3,11 @@
 **Цифровой прорыв 2024 31.05-02.06** <br />
 **Кейс: "Разработка QnA бота Тинькофф Помощь – Бизнес"**
 
+# ИСПОЛЬЗОВАНИЕ НАШЕГО АПИ <br /> 
+https://evident-jolly-primate.ngrok-free.app/assist <br />
+**ПРИМЕР ЗАПРОСА** <br />
+curl -X POST -H "Content-Type: application/json" -d '{"query": "Как выпустить бизнес-карту?"}' https://evident-jolly-primate.ngrok-free.app/assist <br />
+
 # ФАЙЛЫ
 1. train.ipynb - код обучения модели 
 2. interact_llama3_llamacpp.py - файл инференса модели 
