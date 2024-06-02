@@ -1,2 +1,21 @@
-llama-cpp-python
-fire
+!pip install "numpy>=1.12.1" -q
+!pip install "scipy>=1.0.1" -q
+!pip install "torch>=2.0.0" -q
+!pip install transformers==4.35.2 -q
+!pip install accelerate==0.23.0 -q
+!pip install bitsandbytes==0.41.0 -q
+!pip install peft==0.5.0 -q
+!pip install pillow==10.0.1 -q
+!pip install zstandard -q
+!pip install jsonlines -q
+!pip install sentencepiece -q
+!pip install datasketch==1.5.9 -q
+!pip install nltk==3.8.1 -q
+!pip install pytest -q
+!pip install datasets -q
+!pip install aiogram==3.6.0 -q
+!pip install openai -q
+!pip install -U git+https://github.com/jianfch/stable-ts.git -q
+!pip install llama-cpp-python fire -q
+!pip install TTS -q
+!python -m spacy download ru_core_news_lg
