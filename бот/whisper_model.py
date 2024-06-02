@@ -5,7 +5,7 @@ import os
 import torch
 ssl._create_default_https_context = ssl._create_unverified_context
 
-model = stable_whisper.load_hf_whisper('large-v3')
+model = stable_whisper.load_model('large-v3')
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
