@@ -28,16 +28,6 @@ def replace_stars(input_string):
 async def start_handler(message: Message):
     await message.answer(f"Здравствуйте, {message.chat.username}, я ИИ ассистент Тинькоффа. Чем могу быть полезен?")
 
-    chat_id = str(message.chat.id)
-    result = hashlib.md5(chat_id.encode())
-    result = str(result.hexdigest())
-    dat = cursor.execute("""SELECT * from users WHERE user_id=?""", (result,)).fetchall()
-    if len(dat) == 0:
-        hist = [{"role": "system", "content": SYSTEM_PROMPT}]
-        hist = json.dumps(hist)
-        cursor.execute(f"""INSERT INTO users(user_id, history)
-            VALUES  (?, ?)""", (result, hist))
-        conn.commit()
 
 
 async def edit_msg(message: types.Message, text):
@@ -60,29 +50,13 @@ async def any_message(message: Message):
         await bot.send_chat_action(message.chat.id, 'typing')
         text = transcribe_audio(f"{message.chat.id}.mp3")
         await bot.send_chat_action(message.chat.id, 'typing')
-        chat_id = str(message.chat.id)
-        result = hashlib.md5(chat_id.encode())
-        result = str(result.hexdigest())
-        dat = cursor.execute("""SELECT * from users WHERE user_id=?""", (result,)).fetchall()
-        if len(dat) == 0:
-            hist = []
-        else:
-            hist = json.loads(dat[0][1])
+        hist = []
         hist.append({"role": "user", "content": text})
         await bot.send_chat_action(message.chat.id, 'typing')
         print(text)
-        count_simbols = 0
-        i = len(hist) - 1
-        await bot.send_chat_action(message.chat.id, 'typing')
-        while count_simbols < 2000 and i >= 0:
-            count_simbols += len(hist[i]["content"])
-            i -= 1
-        await bot.send_chat_action(message.chat.id, 'typing')
-        if count_simbols >= 2000:
-            hist = hist[i + 1:]
         await bot.send_chat_action(message.chat.id, 'typing')
         data = get_sim(text)
-        if data[0][0] < 0.88:
+        if data[0][0] <= 0.8:
           content = str(fire.Fire(interact(messages=hist)))
         else:
           content = data[0][4]
@@ -90,9 +64,6 @@ async def any_message(message: Message):
         content += f'\n\nПодробнее: \n{data[0][2]}\n{data[1][2]}\n{data[2][2]}'
         query = text
         await bot.send_chat_action(message.chat.id, 'typing')
-        hist.append({"role": "assistant", "content": content})
-        hist = json.dumps(hist)
-
         await bot.delete_message(message.chat.id, wait_msg.message_id)
 
         await message.answer(replace_stars(content), parse_mode='html')
@@ -114,27 +85,10 @@ async def any_message(message: Message):
         else:
             if len(message.text) < 2000:
                 await bot.send_chat_action(message.chat.id, 'typing')
-                chat_id = str(message.chat.id)
-                result = hashlib.md5(chat_id.encode())
-                result = str(result.hexdigest())
-                dat = cursor.execute("""SELECT * from users WHERE user_id=?""", (result,)).fetchall()
-                if len(dat) == 0:
-                    hist = []
-                else:
-                    hist = json.loads(dat[0][1])
+                hist = []
                 hist.append({"role": "user", "content": message.text})
                 await bot.send_chat_action(message.chat.id, 'typing')
                 print(message.text)
-                count_simbols = 0
-                i = len(hist) - 1
-                await bot.send_chat_action(message.chat.id, 'typing')
-                while count_simbols < 2000 and i >= 0:
-                    count_simbols += len(hist[i]["content"])
-                    i -= 1
-                await bot.send_chat_action(message.chat.id, 'typing')
-                if count_simbols >= 2000:
-                    hist = hist[i + 1:]
-                await bot.send_chat_action(message.chat.id, 'typing')
                 data = get_sim(message.text)
                 if data[0][0] < 0.88:
                   content = str(fire.Fire(interact(messages=hist)))
@@ -144,7 +98,6 @@ async def any_message(message: Message):
                 content += f'\n\nПодробнее: \n{data[0][2]}\n{data[1][2]}\n{data[2][2]}'
                 query = message.text
                 await bot.send_chat_action(message.chat.id, 'typing')
-                hist = json.dumps(hist)
                 await message.answer(replace_stars(content), parse_mode='html')
                 await bot.delete_message(message.chat.id, wait_msg.message_id)
 

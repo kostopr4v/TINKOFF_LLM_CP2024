@@ -8,11 +8,10 @@ from aiogram.client.default import DefaultBotProperties
 import sqlite3
 import message_router
 
-BOT_TOKEN = "ВАШ ТОКЕН"
+BOT_TOKEN = "7180497967:AAFYTjx5HnWJbN1rMB4Qvrlv79MO5kyuUqs"
 bot = Bot(BOT_TOKEN, parse_mode="HTML")
 conn = sqlite3.connect('database.db', check_same_thread=False)
 cursor = conn.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS users(user_id, history)")
 cursor.execute("CREATE TABLE IF NOT EXISTS likes (user_id, like, query, answer)")
 conn.commit()
 
